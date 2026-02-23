@@ -1,8 +1,8 @@
 # Latte Routes
-A coffee and walking route tracker
+A coffee and walking route tracker ☕️ 📍
 
-## Core Features
-### Create an entry
+## Core Features 🤎
+### Create an entry 🥐
 - Coffee shop name
 - Neighborhood
 - Distance walked
@@ -10,12 +10,12 @@ A coffee and walking route tracker
 - Notes
 - Date
 
-### Display entries
+### Display entries 🧁
 - List of all entries
 - Average rating
 - Total miles walked
 
-## Tech Stack (JavaScript)
+## Tech Stack (JavaScript) 🍄‍🟫
 ### Frontend
 - React
 ### Backend
@@ -23,7 +23,7 @@ A coffee and walking route tracker
 ### Storage
 - SQLite
 
-## Data Model
+## Data Model 🐿️
 ```
 {
   id: integer,
