@@ -8,26 +8,25 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+      <header>
+        <h1>Latte Routes</h1>
+      </header>
+      <main>
+        <section>
+          <h2>Create entry form</h2>
+          <p>oooo create an entry</p>
+        </section>
+        <section>
+          <h2>Look at entries</h2>
+          <p>oooo an entry</p>
+        </section>
+      </main>
+      <footer>
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          Riley 😎
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      </footer>
+
     </>
   )
 }
