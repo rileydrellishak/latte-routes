@@ -1,0 +1,22 @@
+{
+  "name": "latte-routes",
+  "version": "1.0.0",
+  "description": "A coffee and walking route tracker ☕️ 📍",
+  "homepage": "https://github.com/rileydrellishak/latte-routes#readme",
+  "bugs": {
+    "url": "https://github.com/rileydrellishak/latte-routes/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rileydrellishak/latte-routes.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server"
+  }
+}
