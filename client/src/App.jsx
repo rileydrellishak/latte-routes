@@ -1,9 +1,10 @@
 import './App.css'
 import { getAllRoutesAPI } from '../api/utilities'
 import { useState, useEffect } from 'react'
+import RouteCardContainer from './components/RouteCardContainer';
 
 function App() {
-  const [routes, setRoutes] = useState(null);
+  const [routes, setRoutes] = useState([]);
   const [loading, setLoading] = useState(true)
 
   const fetchData = async () => {
@@ -33,11 +34,7 @@ function App() {
           <h2>Create entry form</h2>
           <p>oooo create an entry</p>
         </section>
-        <section>
-          <h2>Look at entries</h2>
-          <p>oooo an entry</p>
-          <p>Loading is {loading}</p>
-        </section>
+        <RouteCardContainer routesData={routes}/>
       </main>
       <footer>
         <p>
