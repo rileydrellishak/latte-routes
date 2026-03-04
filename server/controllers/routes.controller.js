@@ -1,7 +1,14 @@
-import routes from "../data/routes.data.js";
+import db from '../db.js'
 
 const getAllRoutes = (req, res) => {
-  res.json(routes)
+  const sql = 'SELECT * FROM routes';
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json(rows)
+  })
 }
 
 const createRoute = (req, res) => {
