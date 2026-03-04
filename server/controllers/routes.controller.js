@@ -1,26 +1,34 @@
 import db from '../db.js'
 
-const getAllRoutes = (req, res) => {
-  const sql = 'SELECT * FROM routes';
-  db.all(sql, [], (err, rows) => {
+const handleDbAllCallback = (res) => {
+  return (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
       return;
     }
-    res.json(rows)
-  })
+    res.json(rows);
+  };
+};
+
+const handleDbRunCallback = (res, message = 'Deleted') => {
+  return (err) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.status(200).json({ message });
+  };
+};
+
+const getAllRoutes = (req, res) => {
+  const sql = 'SELECT * FROM routes';
+  db.all(sql, [], handleDbAllCallback(res));
 }
 
 const getRouteById = (req, res) => {
   const idInt = Number(req.params.id);
   const sql = `SELECT * FROM routes WHERE id = ${idInt}`;
-  db.all(sql, [], (err, rows) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    res.json(rows)
-  })
+  db.all(sql, [], handleDbAllCallback(res));
 }
 
 const createRoute = (req, res) => {
@@ -38,14 +46,8 @@ const deleteRoute = (req, res) => {
   const sql = `DELETE FROM routes WHERE id = ?`;
   console.log("Deleting id:", idInt);
   db.serialize(() => {
-    db.run(sql, [idInt], (err) => {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      } res.status(200).json({ message: 'Deleted' })
+    db.run(sql, [idInt], handleDbRunCallback(res));
   })
-})
-  
 };
 
 export { getAllRoutes, getRouteById, createRoute, deleteRoute }
