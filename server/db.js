@@ -2,8 +2,8 @@ import sqlite3 from 'sqlite3'
 import path from 'path'
 
 const db = new sqlite3.Database(
-  path.join('./latte_routes.db'),
-  sqlite3.OPEN_READWRITE,
+  './latte_routes.db',
+  sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE | sqlite3.OPEN_FULLMUTEX,
   (error) => {
     if (error) {
       console.error('Error opening database:', error.message);
@@ -12,5 +12,7 @@ const db = new sqlite3.Database(
     }
   }
 );
+
+db.configure('busyTimeout', 5000)
 
 export default db;
