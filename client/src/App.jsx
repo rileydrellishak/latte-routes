@@ -30,10 +30,6 @@ function App() {
         <h1>Latte Routes</h1>
       </header>
       <main>
-        <section>
-          <h2>Create entry form</h2>
-          <p>oooo create an entry</p>
-        </section>
         <RouteCardContainer routesData={routes}/>
       </main>
       <footer>

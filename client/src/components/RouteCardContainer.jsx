@@ -14,7 +14,7 @@ const RouteCardContainer = ({ routesData }) => {
     />
   })
   return (
-    <section>
+    <section className="routes-container">
       {routeCards}
     </section>
   )
