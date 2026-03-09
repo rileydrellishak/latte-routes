@@ -1,14 +1,29 @@
+import supabase from "../database/supabaseClient.js";
 
+const getAllCoffeeShops = async (req, res) => {
+  const { data, error } = await supabase
+  .from('coffee_shops')
+  .select('*');
 
-const getAllCoffeeShops = (req, res) => {
-  const sql = 'SELECT * FROM routes';
-  db.all(sql, [], handleDbAllCallback(res));
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.status(200).json(data)
 }
 
-const getCoffeeShopById = (req, res) => {
+const getCoffeeShopById = async (req, res) => {
   const idInt = Number(req.params.id);
-  const sql = `SELECT * FROM routes WHERE id = ${idInt}`;
-  db.all(sql, [], handleDbAllCallback(res));
+  const { data, error } = await supabase
+  .from('coffee_shops')
+  .select('*')
+  .eq('id', idInt);
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.status(200).json(data)
 }
 
 export { getAllCoffeeShops, getCoffeeShopById}
