@@ -1,4 +1,4 @@
-import db from '../db.js'
+import supabase from "../supabaseClient.js";
 
 const handleDbAllCallback = (res) => {
   return (err, rows) => {
