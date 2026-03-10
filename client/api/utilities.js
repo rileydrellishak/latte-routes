@@ -13,8 +13,10 @@ const getAllCitiesAPI = () => {
   .catch(error => console.log(error))
 }
 
-const getAllNeighborhoodsAPI = () => {
-  return axios.get(`${kBaseURL}/neighborhoods`)
+const getNeighborhoodsForCity = (cityId) => {
+  return axios.get(`${kBaseURL}/cities/${cityId}/neighborhoods`)
+  .then(response => response.data)
+  .catch(error => console.log(error))
 }
 
-export { getAllCoffeeShopsAPI, getAllCitiesAPI }
+export { getAllCoffeeShopsAPI, getAllCitiesAPI, getNeighborhoodsForCity }
