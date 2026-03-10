@@ -1,15 +1,23 @@
-const SelectNeighborhoodDropdown = ({ selectNeighborhood, neighborhoods }) => {
+import Select from 'react-select'
+
+const SelectNeighborhoodDropdown = ({ selectNeighborhood, neighborhoods, selectedCityId }) => {
   const options = neighborhoods.map((neighborhood) => {
     return (
-      <option value={neighborhood.id}key={neighborhood.id}>{neighborhood.name}</option>
+      { value: `${neighborhood.id}`, label: `${neighborhood.name}`}
     )
   })
   
   return (
     <>
-      <select onChange={selectNeighborhood}>
-        {options}
-      </select>
+      <Select 
+        id='neighborhood-select'
+        defaultValue={null}
+        onChange={selectNeighborhood}
+        required
+        options={options}
+        placeholder='Select Neighborhood'
+        isDisabled={selectedCityId === null}
+      />
     </>
   )
 }

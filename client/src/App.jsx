@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { FadeLoader } from 'react-spinners'
 import SelectCityDropdown from './components/SelectCityDropdown'
 import SelectNeighborhoodDropdown from './components/SelectNeighborhoodDropdown'
+import CoffeeShopContainer from './components/CoffeeShopContainer'
+
 function App() {
   const [cities, setCities] = useState([])
   const [neighborhoods, setNeighborhoods] = useState([])
@@ -14,16 +16,7 @@ function App() {
   const fetchData = async () => {
     try {
       const citiesAPI = await getAllCitiesAPI();
-      setCities(citiesAPI)
-      if (citiesAPI.length > 0) {
-        const defaultCityId = citiesAPI[0].id;
-        setSelectedCityId(defaultCityId);
-        
-        const neighborhoodsAPI = await getNeighborhoodsForCity(defaultCityId)
-        setNeighborhoods(neighborhoodsAPI)
-        setSelectedNeighborhoodId(neighborhoodsAPI[0].id)
-      }
-      
+      setCities(citiesAPI)      
     } catch (error) {
       console.error('error fetch!', error)
     } 
@@ -38,15 +31,19 @@ function App() {
     }, []
   )
 
-  const selectCity = async (event) => {
-    const cityId = event.target.value
+  const selectCity = async (selectedCity) => {
+    setNeighborhoods([])
+    setSelectedNeighborhoodId(null)
+
+    const cityId = selectedCity.value
     setSelectedCityId(cityId);
+
     const neighborhoodsAPI = await getNeighborhoodsForCity(cityId);
     setNeighborhoods(neighborhoodsAPI)
   }
 
-  const selectNeighborhood = async (event) => {
-    const neighborhoodId = event.target.value
+  const selectNeighborhood = (selectedNeighborhood) => {
+    const neighborhoodId = selectedNeighborhood.value
     setSelectedNeighborhoodId(neighborhoodId)
   }
 
@@ -67,13 +64,26 @@ function App() {
       <header>
         <h1>Latte Routes</h1>
       </header>
+
       <main>
-        <h2>select city</h2>
-        <SelectCityDropdown selectCity={selectCity} cities={cities}/>
-        
-        <h2>select neighborhood</h2>
-        <SelectNeighborhoodDropdown selectNeighborhood={selectNeighborhood} neighborhoods={neighborhoods}/>
+        <label><h2>Select City</h2></label>
+        <SelectCityDropdown
+          selectCity={selectCity}
+          cities={cities}
+        />
+
+        <label><h2>Select Neighborhood</h2></label>
+        <SelectNeighborhoodDropdown
+          key={selectedCityId}
+          selectNeighborhood={selectNeighborhood}
+          neighborhoods={neighborhoods}
+          selectedCityId={selectedCityId}
+        />
+
+        <h2>Coffee Shops</h2>
+        <CoffeeShopContainer />
       </main>
+
       <footer>
         <p>
           Riley 😎

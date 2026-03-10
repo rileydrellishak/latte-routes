@@ -1,14 +1,24 @@
+import Select from 'react-select'
+
 const SelectCityDropdown = ({ selectCity, cities }) => {
   const options = cities.map((city) => {
     return (
-      <option key={city.id} value={city.id}>{city.name}, {city.state_code}</option>
+      { 
+        value: `${city.id}`, 
+        label: `${city.name}, ${city.state_code}`
+      }
     )
   })
   return (
     <>
-      <select onChange={selectCity}>
-        {options}
-      </select>
+      <Select 
+        id='city-select'
+        defaultValue={null}
+        onChange={selectCity}
+        required
+        options={options}
+        placeholder='Select City'
+      />
     </>
   )
 }
