@@ -83,3 +83,4 @@ A coffee and walking route tracker ☕️ 📍
   notes: string,
 }
 ```
+
