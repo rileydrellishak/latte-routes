@@ -1,38 +1,63 @@
 import supabase from "../database/supabaseClient.js";
 
+const handleControllerError = (res, error) => {
+  return res.status(error.status || 500).json({ error: error.message })
+}
+
+const validateId = (id) => {
+  const idInt = Number(id)
+  if (isNaN(idInt)) {
+    const error = new Error(`Id ${id} invalid. Ids must be integers.`);
+    error.status = 400;
+    throw error
+  }
+  return idInt
+}
+
+const validateModel = async (idInt, modelName) => {
+  const { data, error } = await supabase
+    .from(modelName)
+    .select('*')
+    .eq('id', idInt)
+    .maybeSingle();
+
+  if (error) {
+    const err = new Error(error.message);
+    err.status = 500;
+    throw err;
+  }
+
+  if (!data) {
+    const err = new Error(`${modelName} with id ${idInt} not found`)
+    err.status = 404;
+    throw err
+  }
+
+  return data
+}
+
 const getAllModels = (modelName) => async (req, res) => {
   const { data, error } = await supabase
   .from(modelName)
   .select('*');
 
   if (error) {
-    return res.status(500).json({ error: error.message });
+    return handleControllerError(res, error)
   }
 
   res.status(200).json(data)
 }
 
 const getModelById = (modelName) => async (req, res) => {
-  const idInt = Number(req.params.id);
+  try {
+    const idInt = validateId(req.params.id)
+    const model = await validateModel(idInt, modelName)
+    return res.status(200).json(model);
 
-  if (isNaN(idInt)) {
-    return res.status(400).json({ error: `Id ${req.params.id} invalid. Ids must be integers.`})
+  } catch (error) {
+    return handleControllerError(res, error)  
   }
   
-  const { data, error } = await supabase
-  .from(modelName)
-  .select('*')
-  .eq('id', idInt);
-
-  if (error) {
-    return res.status(500).json({ error: error.message });
-  }
-
-  if (!data || data.length === 0) {
-    return res.status(404).json({ error: `${modelName} with id of ${idInt} not found.`})
-  }
-
-  res.status(200).json(data)
 }
 
-export { getAllModels, getModelById }
+export { getAllModels, getModelById, validateId, validateModel, handleControllerError }
