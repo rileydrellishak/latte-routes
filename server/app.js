@@ -1,6 +1,7 @@
 import express from 'express';
 import coffeeShopsRouter from './routes/coffeeShops.routes.js';
 import citiesRouter from './routes/cities.router.js';
+import neighborhoodsRouter from './routes/neighborhoods.router.js';
 import cors from 'cors'
 
 const app = express();
@@ -12,8 +13,9 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 app.use('/coffee_shops', coffeeShopsRouter);
-app.use('/cities', citiesRouter)
+app.use('/cities', citiesRouter);
+app.use('/neighborhoods', neighborhoodsRouter);
 
 export default app;

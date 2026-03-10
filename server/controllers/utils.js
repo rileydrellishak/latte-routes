@@ -28,7 +28,7 @@ const getModelById = (modelName) => async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 
-  if (!res.data) {
+  if (!data || data.length === 0) {
     return res.status(404).json({ error: `${modelName} with id of ${idInt} not found.`})
   }
 
