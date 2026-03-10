@@ -5,7 +5,7 @@ import { FadeLoader } from 'react-spinners'
 import SelectCityDropdown from './components/SelectCityDropdown'
 import SelectNeighborhoodDropdown from './components/SelectNeighborhoodDropdown'
 import CoffeeShopContainer from './components/CoffeeShopContainer'
-
+import MapContainer from './components/Map'
 // key is cityId, value is array of neighborhoods
 const cityNeighborhoodsCache = {}
 
@@ -110,6 +110,9 @@ function App() {
 
         <h2>Coffee Shops</h2>
         <CoffeeShopContainer data={coffeeShops}/>
+
+        <h2>map</h2>
+        <MapContainer />
       </main>
 
       <footer>
