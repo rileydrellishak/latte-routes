@@ -1,17 +1,19 @@
 import './App.css'
-import { getAllRoutesAPI } from '../api/utilities'
+import { getAllCoffeeShopsAPI, getAllCitiesAPI } from '../api/utilities'
 import { useState, useEffect } from 'react'
-import RouteCardContainer from './components/RouteCardContainer';
 import { FadeLoader } from 'react-spinners'
 
 function App() {
-  const [routes, setRoutes] = useState([]);
+  const [cities, setCities] = useState([])
+  const [coffeeShops, setCoffeeShops] = useState([]);
   const [loading, setLoading] = useState(true)
 
   const fetchData = async () => {
     try {
-      const routesAPI = await getAllRoutesAPI();
-      setRoutes(routesAPI)
+      const citiesAPI = await getAllCitiesAPI();
+      setCities(citiesAPI)
+      const coffeeShopsAPI = await getAllCoffeeShopsAPI();
+      setCoffeeShops(coffeeShopsAPI)
     } catch (error) {
       console.error('error fetch!', error)
     } 
@@ -44,8 +46,8 @@ function App() {
         <h1>Latte Routes</h1>
       </header>
       <main>
-
-          <RouteCardContainer routesData={routes}/>
+        {cities[0].name}
+        <p>select city</p>
 
       </main>
       <footer>
