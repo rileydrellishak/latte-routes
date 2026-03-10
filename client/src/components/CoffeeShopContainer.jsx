@@ -3,7 +3,7 @@ import CoffeeShopCard from "./CoffeeShopCard";
 const CoffeeShopContainer = ({data}) => {
   const cards = data.map((coffeeShop) => {
     return (
-      <CoffeeShopCard cs={coffeeShop}/>
+      <CoffeeShopCard key={coffeeShop.id} cs={coffeeShop}/>
     )
   })
   return (
