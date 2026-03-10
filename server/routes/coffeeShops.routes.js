@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import { getAllCoffeeShops, getCoffeeShopById  } from '../controllers/coffeeShops.controller.js';
+import { getAllModels, getModelById } from '../controllers/utils.js';
+
 
 const coffeeShopsRouter = Router();
 
-coffeeShopsRouter.get('/', getAllCoffeeShops); 
-coffeeShopsRouter.get('/:id', getCoffeeShopById)
+coffeeShopsRouter.get('/', getAllModels('coffee_shops')); 
+coffeeShopsRouter.get('/:id', getModelById('coffee_shops'))
 
 export default coffeeShopsRouter;

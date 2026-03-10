@@ -1,5 +1,6 @@
 import express from 'express';
 import coffeeShopsRouter from './routes/coffeeShops.routes.js';
+import citiesRouter from './routes/cities.router.js';
 import cors from 'cors'
 
 const app = express();
@@ -13,5 +14,6 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 app.use('/coffee_shops', coffeeShopsRouter);
+app.use('/cities', citiesRouter)
 
 export default app;
