@@ -60,4 +60,29 @@ const getModelById = (modelName) => async (req, res) => {
   
 }
 
-export { getAllModels, getModelById, validateId, validateModel, handleControllerError }
+// get all X that belong to this parent (neighborhoods to cities, coffee shops to neighborhoods)
+const getRelatedModels = (childModel, foreignKeyColumn) => async (req, res) => {
+  const fkColModelName = {
+    'city_id': 'cities',
+    'neighborhood_id': 'neighborhoods',
+    'coffee_shop_id': 'coffee_shops',
+    'route_id': 'routes',
+  }
+  
+  try {
+    const parentId = validateId(req.params.id)
+    
+    await validateModel(parentId, fkColModelName[foreignKeyColumn])
+    const { data, error } = await supabase
+    .from(childModel)
+    .select('*')
+    .eq(foreignKeyColumn, parentId)
+
+    if (error) throw error;
+    res.status(200).json(data)
+  } catch (error) {
+    return handleControllerError(res, error)
+  }
+}
+
+export { getAllModels, getModelById, validateId, validateModel, handleControllerError, getRelatedModels }

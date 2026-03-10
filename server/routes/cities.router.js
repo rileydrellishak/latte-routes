@@ -1,11 +1,10 @@
 import { Router } from 'express';
-import { getAllModels, getModelById } from '../controllers/utils.js';
-import { getNeighborhoodsForCity } from '../controllers/cities.controller.js';
+import { getAllModels, getModelById, getRelatedModels } from '../controllers/utils.js';
 
 const citiesRouter = Router();
 
 citiesRouter.get('/', getAllModels('cities')); 
 citiesRouter.get('/:id', getModelById('cities'))
-citiesRouter.get('/:id/neighborhoods', getNeighborhoodsForCity)
+citiesRouter.get('/:id/neighborhoods', getRelatedModels('neighborhoods', 'city_id'))
 
 export default citiesRouter;
