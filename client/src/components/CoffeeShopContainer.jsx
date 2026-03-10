@@ -1,10 +1,14 @@
 import CoffeeShopCard from "./CoffeeShopCard";
 
-const CoffeeShopContainer = () => {
+const CoffeeShopContainer = ({data}) => {
+  const cards = data.map((coffeeShop) => {
+    return (
+      <CoffeeShopCard cs={coffeeShop}/>
+    )
+  })
   return (
-    <div class='coffee-shops-container'>
-      <CoffeeShopCard />
-      <CoffeeShopCard />
+    <div className='coffee-shops-container'>
+      {cards}
     </div>
   )
 };

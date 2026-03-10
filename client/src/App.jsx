@@ -1,5 +1,5 @@
 import './App.css'
-import { getAllCoffeeShopsAPI, getAllCitiesAPI, getNeighborhoodsForCity } from '../api/utilities'
+import { getAllCitiesAPI, getNeighborhoodsForCity, getCoffeeShopsForNeighborhood } from '../api/utilities'
 import { useState, useEffect } from 'react'
 import { FadeLoader } from 'react-spinners'
 import SelectCityDropdown from './components/SelectCityDropdown'
@@ -12,6 +12,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [selectedCityId, setSelectedCityId] = useState(null)
   const [selectedNeighborhoodId, setSelectedNeighborhoodId] = useState(null)
+  const [coffeeShops, setCoffeeShops] = useState([])
 
   const fetchData = async () => {
     try {
@@ -33,6 +34,7 @@ function App() {
 
   const selectCity = async (selectedCity) => {
     setNeighborhoods([])
+    setCoffeeShops([])
     setSelectedNeighborhoodId(null)
 
     const cityId = selectedCity.value
@@ -42,9 +44,14 @@ function App() {
     setNeighborhoods(neighborhoodsAPI)
   }
 
-  const selectNeighborhood = (selectedNeighborhood) => {
+  const selectNeighborhood = async (selectedNeighborhood) => {
+    setCoffeeShops([])
+    
     const neighborhoodId = selectedNeighborhood.value
     setSelectedNeighborhoodId(neighborhoodId)
+
+    const coffeeShopsAPI = await getCoffeeShopsForNeighborhood(neighborhoodId)
+    setCoffeeShops(coffeeShopsAPI)
   }
 
   if (loading) {
@@ -81,7 +88,7 @@ function App() {
         />
 
         <h2>Coffee Shops</h2>
-        <CoffeeShopContainer />
+        <CoffeeShopContainer data={coffeeShops}/>
       </main>
 
       <footer>

@@ -19,4 +19,10 @@ const getNeighborhoodsForCity = (cityId) => {
   .catch(error => console.log(error))
 }
 
-export { getAllCoffeeShopsAPI, getAllCitiesAPI, getNeighborhoodsForCity }
+const getCoffeeShopsForNeighborhood = (neighborhoodId) => {
+  return axios.get(`${kBaseURL}/neighborhoods/${neighborhoodId}/coffee_shops`)
+  .then(response => response.data)
+  .catch(error => console.log(error))
+}
+
+export { getAllCoffeeShopsAPI, getAllCitiesAPI, getNeighborhoodsForCity, getCoffeeShopsForNeighborhood }

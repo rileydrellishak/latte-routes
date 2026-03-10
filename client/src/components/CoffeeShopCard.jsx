@@ -1,7 +1,8 @@
-const CoffeeShopCard = () => {
+const CoffeeShopCard = ({ cs }) => {
   return (
-    <div class='coffee-shop-card'>
-      <p>shop</p>
+    <div className='coffee-shop-card'>
+      <h3>{cs.name}</h3>
+      <h4>{cs.street_number} {cs.street_name}</h4>
     </div>
   )
 };
