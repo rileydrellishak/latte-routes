@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-
+// position is {[lat, lon]}
 const Map = () => {
   return (
     <section className="map-wrapper">
